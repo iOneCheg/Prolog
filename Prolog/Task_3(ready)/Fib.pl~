@@ -1,0 +1,39 @@
+fib(1,1).
+fib(2,1).
+
+fib(N,F):-
+    N>0,
+    N1 is N-1,fib(N1,F1),
+    N2 is N-2, fib(N2,F2),
+    F is F1+F2.
+
+pr(M,1,M):-!.
+pr(1,N,N):-!.
+pr(M,N,R):-
+    N1 is N-1,
+    M1 is M-1,
+    pr(N1,M1,R1),
+    R is R1+N+M1.
+
+is_even(X):-
+    0 is X mod 2.
+
+sum(N,Sum):-
+    findall(X,between(1,N,X),List),
+    include(is_even, List,EvenList),
+    sum_list(EvenList, Sum).
+
+rd(X):-
+    read(X),
+    X>0,!.
+rd(X):-
+    rd(X).
+
+sumNumbers(Numbers,Sum,N):-
+    Sum<N,
+    rd(X),
+    X>0->NewSum is Sum + X;
+    NewSum is Sum + 0,
+    sumNumbers(Numbers,NewSum,N).
+
+sumNumbers(Sum,Sum,_).
