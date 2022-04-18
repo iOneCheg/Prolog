@@ -1,0 +1,36 @@
+name(petya).
+name(lena).
+name(tanya).
+
+animal(dog).
+animal(cat).
+animal(hamster).
+
+accordance(X,Y):-
+    name(X), X = petya,
+    animal(Y),not(Y=cat),not(Y=hamster).
+
+accordance(X,Y):-
+    name(X), X = lena,
+    animal(Y).
+
+accordance(X,Y):-
+    name(X), X = tanya,
+    animal(Y),Y=cat.
+
+solve(X1,Y1,X2,Y2,X3,Y3) :-
+         X1=petya, accordance(X1,Y1),
+         X2=lena, accordance(X2,Y2),
+         X3=tanya, accordance(X3,Y3),
+         Y1\=Y2, Y2\=Y3, Y1\=Y3.
+
+/* Юра сидел слева от Миши  */
+left(michael,yuriy).
+
+/* Витя сидел слева от Юры */
+left(yuriy,vitya).
+
+/* Объекты X, Y и Z образуют ряд,
+если X слева от Y и Y слева от Z */
+row(X,Y,Z):-
+    left(Y,X),left(Z,Y).

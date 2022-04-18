@@ -1,0 +1,34 @@
+v(морковь).
+v(капуста).
+
+veg_rules(P1, P2, P3, P4, P5):-
+P1 = [катя, V1],
+P2 = [егор, V2],
+P3 = [кира, V3],
+P4 = [захар, V4],
+P5 = [лера, V5],
+v(V1), v(V2), V2 \= V1, v(V3), V3 \= V2, v(V4), V4 \= V3, v(V5), V5 = V4.
+
+incr([_, Y], Z, R):- (Y = морковь)->(R is Z+1); (R is Z).
+count_carr(P1, P2, P3, P4, P5, Z):-
+K1 = 0,
+incr(P1, K1, K2),
+incr(P2, K2, K3),
+incr(P3, K3, K4),
+incr(P4, K4, K5),
+incr(P5, K5, K6),
+Z is K6.
+
+sol_veg(P1, P2, P3, P4, P5):-
+veg_rules(P1, P2, P3, P4, P5),
+count_carr(P1, P2, P3, P4, P5, Z), Z=3, !.
+
+sol_veg_p(P):- sol_veg(P1, P2, P3, P4, P5),
+(P1 = [P, V]; P2 = [P, V]; P3 = [P, V]; P4 = [P, V]; P5 = [P, V]),
+write(P), write(' - '),write(V),nl,!.
+
+people([]).
+people([X|Y]) :- sol_veg_p(X), people(Y).
+
+solution2:- people([егор,катя,захар,кира,лера]).
+
